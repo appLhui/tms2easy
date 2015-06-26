@@ -1,0 +1,19 @@
+doctype html
+html
+    head
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/util/bootstrap.css')
+        link(rel='stylesheet', href='/stylesheets/util/angular-ui.css')
+
+        script(type="text/javascript",src="/javascripts/angular.js")
+        script(type="text/javascript",src="/javascripts/angular-route.js")
+        script(type="text/javascript",src="/javascripts/angular-translate.js")
+        script(type="text/javascript",src="/javascripts/angular-ui-router.js")
+        script(type="text/javascript",src="/javascripts/angular-ui.js")
+        script(type="text/javascript",src="/javascripts/ui-bootstrap-tpls.js")
+        | <script>window.config=!{config};</script>
+
+body
+    div(ui-view)
+    script(type="text/javascript",src="/javascripts/app.js")
+

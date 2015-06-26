@@ -1,0 +1,23 @@
+{
+  "name": "tms2easy",
+  "version": "0.0.0",
+  "authors": [
+    "mofei <mofei.lh@alibaba-inc.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~1.11.1",
+    "requirejs": "~2.1.17",
+    "ui-router": "~0.2.13"
+  },
+  "devDependencies": {
+    "ui-bootstrap": "~0.13.0"
+  }
+}
