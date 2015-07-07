@@ -6,8 +6,11 @@ router.get('/', function(req, res) {
 
   var config =  require('../util/makeTableInfo')();
 
+
+
   res.render('index', {
-    config: config
+    config: config.s,
+    b:config.b
   });
 
 });

@@ -1,0 +1,13 @@
+<div>
+  <a ng-if="kind == 'object'" ui-sref="child({key:_key,page:_page})">
+    <i class="glyphicon glyphicon-plus"></i>
+    <span> object...</span>
+  </a>
+  <input ng-if="kind == 'string'" ng-model="value">
+  <input ng-if="kind == 'boolean'" type="checkbox" ng-model="value">
+  <a ng-if="kind == 'array'" ui-sref="child({key:_key,page:_page})">
+    <i class="glyphicon glyphicon-plus"></i>
+    [object,object]...
+    <span class="badge" ng-bind="value"></span>
+  </a>
+</div>

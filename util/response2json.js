@@ -28,6 +28,8 @@ module.exports = function(hashObj,grunt,is2Web){
         }
         l += 2;
       }
+
+      console.log(_js)
       var _o = {};
       if(v.kind === 'number'){
         _o[v.id] = parseInt(v.rule);
@@ -77,7 +79,7 @@ module.exports = function(hashObj,grunt,is2Web){
         }else if(!hashObj[key.replace(/\"/g,'')].remark){
           return '"'+hashObj[key.replace(/\"/g,'')].name + '"';
         }else{
-          return '"'+hashObj[key.replace(/\"/g,'')].name + '//'+ hashObj[key.replace(/\"/g,'')].remark + '"';
+          return '"'+hashObj[key.replace(/\"/g,'')].name + '//'+ hashObj[key.replace(/\"/g,'')].remark + '//'+hashObj[key.replace(/\"/g,'')].id+'"';
         }
       }else{
         return key;

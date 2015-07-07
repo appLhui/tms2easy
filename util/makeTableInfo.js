@@ -25,6 +25,6 @@ module.exports = function(url){
 
    var s = require('./response2json')(obj,null,false);
 
-    return JSON.stringify(s);
+    return {s:JSON.stringify(s),b:JSON.stringify(options)};
 
 };
