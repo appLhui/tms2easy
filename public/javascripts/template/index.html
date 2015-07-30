@@ -1,0 +1,26 @@
+
+
+<tabset justified="true">
+  <tab heading="前端工程狮">
+    <p class="text-muted">请将数据填入左边得模版（JSON格式），请将页面模版填入右边模版</p>
+
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="well well-lg " style="padding-left: 0 !important;">
+          <textarea id="json" name="json" placeholder="JSON格式数据" class="form-control" ></textarea>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="well well-lg " style="padding-left: 0 !important;">
+          <textarea id="html" name="html" placeholder="页面模版" class="form-control" ></textarea>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-primary" ng-click="formatRange()">格式化选中代码</button>
+      <button type="button" class="btn btn-primary" ng-click="importCode()">导入</button>
+    </div>
+  </tab>
+  <tab heading="运营专猿">Short Labeled Justified content</tab>
+</tabset>

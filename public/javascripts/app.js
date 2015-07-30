@@ -1,120 +1,51 @@
+var fs = require('fs');
+var insertCss = require('insert-css');
+
+var path = require('path')
+
+var css = fs.readFileSync(path.resolve('')+"/node_modules/codemirror/lib/codemirror.css");
+css += fs.readFileSync(path.resolve('')+"/node_modules/codemirror/addon/fold/foldgutter.css");
+css += fs.readFileSync(path.resolve('')+"/node_modules/bootstrap/dist/css/bootstrap.min.css");
+css += fs.readFileSync(path.resolve('')+"/node_modules/angular-ui-bootstrap/ui-bootstrap-csp.css");
+insertCss(css);
+
+
+window.jQuery = window.$ = global.jQuery = require('jquery');
+global.CodeMirror = require('codemirror');
+
+require('../../node_modules/codemirror/mode/xml/xml');
+require('../../node_modules/codemirror/mode/javascript/javascript');
+require('../../node_modules/codemirror/mode/css/css');
+require('../../node_modules/codemirror/mode/htmlmixed/htmlmixed');
+require('../../node_modules/codemirror/addon/display/placeholder');
+require('../../node_modules/codemirror/addon/fold/foldcode');
+require('../../node_modules/codemirror/addon/fold/foldgutter');
+require('../../node_modules/codemirror/addon/fold/brace-fold');
+require('../../node_modules/codemirror/addon/fold/xml-fold');
+require('../../node_modules/codemirror/addon/fold/markdown-fold');
+require('../../node_modules/codemirror/addon/fold/comment-fold');
+require('./util/formatting');
+
+
+require('angular');
+require('angular-route');
+require('angular-translate');
+require('angular-sanitize');
+require('angular-ui-router');
+require('angular-ui-bootstrap');
+require('angular-dragdrop');
+
+require('./filter/filter');
+require('./directive/directive');
+require('./service/service');
+
+
+
 angular.element(document).ready(function () {
 
-  var app = angular.module('app', ['ui.bootstrap', 'ui.router','ngSanitize']);
+  var app = angular.module('app', ['ui.bootstrap', 'ui.router','ngSanitize','ngDragDrop','filter','directive']);
 
-  app.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
-
-//    $urlRouterProvider.otherwise("/");
-
-    $stateProvider.state('child', {
-      url: "/:key/:page",
-      templateUrl: '../template/index.html',
-      controller: ['$scope','$stateParams', function ($scope,$stateParams) {
-        var parentsObj = [];
-
-        var _js = '';
-
-        for(var _i = 0 ; _i < $stateParams.key.length/2;_i++){
-          angular.forEach(window.arrayConfig,function(o){
-             if(o.id == $stateParams.key.substr(0,(_i+1)*2)){
-               parentsObj.push(o);
-               _js+= '["'+ o.name+'//'+ o.remark+'//'+ o.id+'"]';
-               if(angular.isArray(eval('window.config'+_js))){
-                 $scope.listLength = eval('window.config'+_js);
-                 _js+= '[0]';
-               };
-             }
-          });
-        }
-
-        $scope.list = eval('window.config'+_js);
-        $scope.breadcrumb = parentsObj;
-        $scope.stateParams = $stateParams;
-
-
-        $scope.add = function(){
-          $scope.listLength.push($scope.listLength[$scope.listLength.length-2]);
-        };
-
-
-
-        $('.list').drop({
-          handle: '.item',
-          drag: '.item',
-          containment: $('.list'),
-          ondragover: function() {
-            $(this).addClass('over');
-          },
-          ondragout: function() {
-            $(this).removeClass('over');
-          },
-          ondragenter: function() {
-            $(this).addClass('enter');
-          },
-          ondragleave: function() {
-            $(this).removeClass('enter');
-          },
-          ondrop:function(){
-
-          }
-        });
-
-
-
-      }]
-    });
-
-  }]);
-
-
-  app.filter('analysis',function(){
-    return function(key,name){
-       var _array = key.split('//');
-       if(name == 'label'){
-         return _array[0];
-       }else if(name == 'info'){
-         return _array[1];
-       }else if(name == 'key'){
-         return _array[2];
-       }else{
-         return key;
-       }
-    }
-  });
-
-  app.directive('distinguish', function () {
-    return {
-      restrict: 'A',
-      templateUrl:'../template/value.html',
-      scope:{
-        distinguish:'=',
-        key:'=',
-        page:'='
-      },
-      link: function($scope){
-          if(angular.isObject($scope.distinguish)){
-            if(angular.isArray($scope.distinguish)){
-              $scope.kind = 'array';
-              $scope.value =  $scope.distinguish.length;
-              $scope._page = $scope.page?$scope.page+ '_0':0;
-            }else{
-              $scope.kind = 'object';
-              $scope._page = $scope.page?$scope.page+ '_0':0;
-            }
-          }else if(angular.isString($scope.distinguish)){
-            $scope.kind = 'string';
-            $scope.value = $scope.distinguish;
-          }else if($scope.distinguish === true || $scope.distinguish === false){
-            $scope.kind = 'boolean';
-            $scope.value = $scope.distinguish;
-          }
-      },
-      controller:['$scope','$filter',function($scope,$filter){
-        if(angular.isObject($scope.distinguish)) $scope._key = $filter('analysis')($scope.key,'key');
-      }]
-    };
-  });
-
+  app.config(require('./routes'));
 
   angular.bootstrap(document, ['app']);
 
