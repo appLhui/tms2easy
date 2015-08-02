@@ -3,8 +3,11 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
-    "build": "browserify -t browserify-css ./public/javascripts/app.js -o ./public/build/bundle.js"
+    "watch": "watchify -t brfs public/javascripts/app.js -o public/build/bundle.js -v",
+    "build": "browserify -t brfs  public/javascripts/app.js -o public/build/bundle.js",
+    "util": "browserify -t brfs  public/javascripts/util.js -o public/build/util.js",
+    "start": "npm run watch & nodemon ./bin/www"
+
   },
   "dependencies": {
     "express": "~4.2.0",

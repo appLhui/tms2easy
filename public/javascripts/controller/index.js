@@ -19,7 +19,6 @@ module.exports = ['$scope','$timeout',function($scope,$timeout){
       codeMirror.autoFormatSelection(jsonInput);
     },
     importCode:function(){
-
     }
   });
 
